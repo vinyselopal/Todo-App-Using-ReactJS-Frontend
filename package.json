@@ -34,5 +34,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "standard": {},
+  "devDependencies": {
+    "standard": "^17.0.0"
   }
 }
