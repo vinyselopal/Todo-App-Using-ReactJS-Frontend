@@ -1,52 +1,57 @@
+const BASE_URL = 'http://localhost:8000'
+
 async function getAllTodos () {
-  const result = await (await fetch('http://localhost:8000', {
+  const result = await (await fetch(`${BASE_URL}`, {
     method: 'GET'
   })).json()
   return result
 }
+
 async function insertTodo (todo) {
-  const result = await (await fetch('http://localhost:8000', {
+  const key = await (await fetch(`${BASE_URL}`, {
     method: 'POST',
     body: JSON.stringify(todo),
     headers: {
       'content-type': 'application/json'
     }
   })).json()
-  return result.id
+
+  return key
 }
+
 async function updateTodo (key, field, value) {
-  const filter = {}
-  filter[field] = value
-  const result = await (await fetch(`http://localhost:8000/${key}`, {
+  const result = await (await fetch(`${BASE_URL}/${key}`, {
     method: 'PUT',
-    body: JSON.stringify(filter),
+    body: JSON.stringify({ field, value }),
     headers: {
       'content-type': 'application/json'
     }
   })).json()
+
   return result
 }
 async function deleteTodo (key) {
-  const result = await (await fetch(`http://localhost:8000/${key}`, {
+  const result = await (await fetch(`${BASE_URL}/${key}`, {
     method: 'DELETE'
   })).json()
+
   return result
 }
 async function deleteAll () {
-  const result = await (await fetch('http://localhost:8000/', {
+  const result = await (await fetch(`${BASE_URL}`, {
     method: 'DELETE'
   })).json()
+
   return result
 }
 async function deleteDone (keys) {
-  const result = await (await fetch('http://localhost:8000/done', {
+  await fetch(`${BASE_URL}/done`, {
     method: 'DELETE',
-    body: JSON.stringify({ keys }),
+    body: JSON.stringify(keys),
     headers: {
       'content-type': 'application/json'
     }
-  })).json()
-  return result
+  })
 }
 
 export { getAllTodos, insertTodo, updateTodo, deleteTodo, deleteAll, deleteDone }

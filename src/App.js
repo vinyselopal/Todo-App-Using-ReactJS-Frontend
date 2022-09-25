@@ -7,12 +7,15 @@ import Footer from './components/Footer'
 import { getAllTodos, insertTodo, updateTodo, deleteTodo, deleteAll, deleteDone } from './DB.js'
 function App () {
   const [todos, updateTodos] = useState([])
+
   useEffect(() => {
     (async function () {
       const fetchedTodos = await getAllTodos()
-      updateTodos(fetchedTodos)
-      console.log('todos', todos)
-      console.log('fetchedTodos', fetchedTodos)
+      // if (fetchedTodos.length) {
+      //   fetchedTodos.done = JSON.parse(fetchedTodos.done)
+      // }
+      const parsedTodos = fetchedTodos.map(todo => ({ ...todo, done: JSON.parse(todo.done) }))
+      updateTodos(parsedTodos)
     })()
   }, [])
   return (
@@ -21,8 +24,8 @@ function App () {
         <h1>ReDo</h1>
       </header>
       <AddTodo updateTodos={updateTodos} todos={todos} insertTodo={insertTodo} />
-      <List listItems={todos} updateTodo={updateTodo} />
-      <Footer />
+      <List todos={todos} updateTodo={updateTodo} updateTodos={updateTodos} />
+      <Footer updateTodos={updateTodos} todos={todos} />
     </div>
   )
 }

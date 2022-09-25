@@ -1,11 +1,17 @@
+import { useEffect, useState } from 'react'
 import Todo from './Todo'
 
-import { useEffect, useState } from 'react'
-function List ({ listItems }) {
+function List ({ todos, updateTodos }) {
   return (
     <ul className='List'>
-      {listItems.map((todo, i) =>
-        <Todo todo={todo} key={todo.key} listItems={listItems} /> // try counter with closure, for id
+      {todos.map((todo, id) =>
+        <Todo
+          todo={todo}
+          key={id}
+          // key={todo.key}
+          todos={todos}
+          updateTodos={updateTodos}
+        /> // try counter with closure, for id
       )}
     </ul>
   )
