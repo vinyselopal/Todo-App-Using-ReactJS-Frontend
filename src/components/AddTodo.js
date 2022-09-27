@@ -13,7 +13,7 @@ function AddTodo ({ updateTodos, todos, insertTodo }) {
         done: false,
         priority: 'none',
         notes: '',
-        date: null // unique key prop remaining
+        date: null
       }
 
       const key = await insertTodo(todo)
@@ -21,7 +21,6 @@ function AddTodo ({ updateTodos, todos, insertTodo }) {
 
       updateTodos([...todos, todo]) // use function to update
       updateTodoContent('')
-      // e.target.value = ""
     }
   }
 

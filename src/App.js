@@ -11,10 +11,7 @@ function App () {
   useEffect(() => {
     (async function () {
       const fetchedTodos = await getAllTodos()
-      // if (fetchedTodos.length) {
-      //   fetchedTodos.done = JSON.parse(fetchedTodos.done)
-      // }
-      const parsedTodos = fetchedTodos.map(todo => ({ ...todo, done: JSON.parse(todo.done) }))
+      const parsedTodos = fetchedTodos.map(todo => ({ ...todo, done: JSON.parse(todo.done), expanded: false }))
       updateTodos(parsedTodos)
     })()
   }, [])

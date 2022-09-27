@@ -8,10 +8,9 @@ function List ({ todos, updateTodos }) {
         <Todo
           todo={todo}
           key={id}
-          // key={todo.key}
           todos={todos}
           updateTodos={updateTodos}
-        /> // try counter with closure, for id
+        />
       )}
     </ul>
   )

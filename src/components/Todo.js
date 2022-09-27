@@ -1,8 +1,7 @@
 import { useState } from 'react' // divide into components
 import { updateTodo, deleteTodo } from '../DB.js'
 
-function Todo ({ todo, updateTodos, todos }) {
-  const [expanded, updateExpanded] = useState(false)
+function Todo ({ todo, updateTodos, todos}) {
 
   function deleteTodoInList () {
     const newTodos = todos.filter(a => a.key !== todo.key)
@@ -24,7 +23,6 @@ function Todo ({ todo, updateTodos, todos }) {
             value={todo.content}
             onChange={(e) => {
               updateTodo(todo.key, 'content', e.target.value)
-              // todo.content = e.target.value
               const newTodo = { ...todo, content: e.target.value }
               const slicedTodos = todos.filter(a => a.key !== todo.key)
               const newTodos = [...slicedTodos, newTodo].sort((a, b) => a - b)
@@ -48,12 +46,15 @@ function Todo ({ todo, updateTodos, todos }) {
           type='button'
           className='expandTodoButton'
           onClick={() => {
-            updateExpanded((expanded) => !expanded)
+            const newTodo = { ...todo, expanded: !todo.expanded }
+            const slicedTodos = todos.filter(a => a.key !== todo.key)
+            const newTodos = [...slicedTodos, newTodo].sort((a, b) => a.key - b.key) // name key as id
+            updateTodos(newTodos)
           }}
           value='v'
         />
       </div>
-      <div className='hidden' style={{ display: expanded ? 'flex' : 'none' }}>
+      <div className='hidden' style={{ display: todo.expanded ? 'flex' : 'none' }}>
         <div className='leftHidden'>
           <textarea
             className='notes' value={todo.notes} onChange={(e) => {
