@@ -12,9 +12,6 @@ function Todo ({ todo, updateTodos, todos}) {
 
   return (
     <li>
-      <div>key: {todo.key}</div>
-      <div>content: {todo.content}</div>
-      <div>done: {String(todo.done)}</div>
       <div className='visible'>
         <p className='savedTask'>
           <input
